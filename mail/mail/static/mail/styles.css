@@ -1,3 +1,21 @@
 textarea {
     min-height: 400px;
 }
+
+.btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+.emails_container{
+    border: 1px solid black;
+    margin-top: 20px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.date{
+    font-size: 13px;
+    color: #464444bb;
+}
