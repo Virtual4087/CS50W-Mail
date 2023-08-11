@@ -1,3 +1,15 @@
+body{
+    padding: 0 50px;
+    margin: 0;
+}
+
+.container{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 textarea {
     min-height: 400px;
 }
@@ -6,12 +18,25 @@ textarea {
     outline: none;
     box-shadow: none;
 }
+
+.container > h2{
+    align-self: center;
+}
+
+.nav{
+    align-self: center;
+    display: flex;
+    gap: 10px;
+}
+
 .emails_container{
-    border: 1px solid black;
-    margin-top: 20px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin-top: 5px;
     padding: 20px 10px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
 }
 

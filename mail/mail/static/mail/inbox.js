@@ -28,6 +28,11 @@ function compose_email(reply) {
     subject.value = '';
     subject.disabled = false;
     body.value = '';
+    document.querySelector('#compose-title').innerHTML = 'New Email';
+  }
+  else{
+    document.querySelector('#compose-title').innerHTML = 'Reply';
+
   }
 
   document.querySelector('#compose-form').onsubmit = () => {
@@ -69,18 +74,18 @@ function load_mailbox(mailbox) {
       div.setAttribute('id', `n${email.id}`);
       div.classList.add('emails_container');
       if (mailbox == 'sent'){
-        div.innerHTML = `<div class="to"><b>To: </b>${email.recipients}</div>
-        <div class="subject"><b>Subject: </b>${email.subject}</div>
+        div.innerHTML = `<div><div class="to"><b>To: </b>${email.recipients}</div>
+        <div class="subject"><b>Subject: </b>${email.subject}</div></div>
         <div class="date">${email.timestamp}</div>`;
       }
       else{
-        div.innerHTML = `<div class="from"><b>From: </b>${email.sender}</div>
-        <div class="subject"><b>Subject: </b>${email.subject}</div>
+        div.innerHTML = `<div><div class="from"><b>From: </b>${email.sender}</div>
+        <div class="subject"><b>Subject: </b>${email.subject}</div></div>
         <div class="date">${email.timestamp}</div>`;
       }
       document.querySelector('#emails-view').append(div);
       if (email.read){
-        div.style.background = '#cccccc';
+        div.style.background = '#f0f0f0';
       }
       document.querySelector(`#n${email.id}`).addEventListener('click', () => {
         load_mailpage(email.id, mailbox);
@@ -174,7 +179,7 @@ function load_mailpage(mail_id, mailbox){
         subject.value = `Re: ${email.subject}`;
       }
       subject.disabled = true;
-      body.value = `-On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+      body.placeholder = `-On ${email.timestamp} ${email.sender} wrote:\n"${email.body}"\nYour reply:`;
       compose_email(true);
     }
   })
