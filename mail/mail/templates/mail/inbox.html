@@ -11,37 +11,49 @@
         <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
         <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     </div>
-
+    <hr style="width: 100%;">
     <div id="emails-view">
     </div>
 
     <div id="compose-view">
+
         <h3 id="compose-title">New Email</h3>
         <form id="compose-form">
+            <div class="alert alert-warning" id="alert">
+                Wrong email address
+                <label id="dismiss_alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </label>
+            </div>
             <div class="form-group">
                 From: <input disabled class="form-control" value="{{ request.user.email }}">
             </div>
             <div class="form-group">
-                To: <input id="compose-recipients" class="form-control">
+                To: <input id="compose-recipients" class="form-control" required>
             </div>
             <div class="form-group">
-                <input class="form-control" id="compose-subject" placeholder="Subject">
+                <input class="form-control" id="compose-subject" placeholder="Subject" autocomplete="off" required>
             </div>
-            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <textarea class="form-control" id="compose-body" placeholder="Body" required></textarea>
             <br>
             <input type="submit" class="btn btn-primary"/>
         </form>
     </div>
 
     <div id="email_page-view">
+        <div id="date" class="date"></div>
         <div id="from"><b>From: </b></div>
         <div id="to"><b>To: </b></div>
         <div id="subject"><b>Subject: </b></div>
-        <div id="date" class="date"></div>
-        <button id="archive">Archive</button>
-        <button id="reply">Reply</button>
+        <div class="buttons">
+            <button id="archive">Archive</button>
+            <button id="reply">Reply</button>
+        </div>
+        <hr style="width: 100%;">
         <br>
-        <pre id="body"></pre>
+        <pre id="body" style="margin-left: 10px;"></pre>
     </div>
 {% endblock %}
 

@@ -16,6 +16,7 @@ function compose_email(reply) {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#email_page-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#alert').style.display = 'none';
 
   const to = document.querySelector('#compose-recipients');
   const subject = document.querySelector('#compose-subject');
@@ -46,11 +47,13 @@ function compose_email(reply) {
     })
     .then(response => {
       if (response.ok){
-        alert("Successfull");
         load_mailbox('sent');
       }
       if (response.status == 400){
-        alert("wrong email address")
+        document.querySelector('#alert').style.display = 'flex';
+        document.querySelector('#dismiss_alert').onclick = () => {
+          document.querySelector('#alert').style.display = 'none';
+        }
         to.focus();
       }
     })
@@ -96,7 +99,7 @@ function load_mailbox(mailbox) {
 
 function load_mailpage(mail_id, mailbox){
   document.querySelector('#emails-view').style.display = 'none';
-  document.querySelector('#email_page-view').style.display = 'block';
+  document.querySelector('#email_page-view').style.display = 'flex';
   document.querySelector('#compose-view').style.display = 'none';
  
   fetch(`/emails/${mail_id}`)
@@ -130,14 +133,17 @@ function load_mailpage(mail_id, mailbox){
     else{
       archive.style.display = 'block';
       reply.style.display = 'block';
+      reply.style.background = '#069aea';
     }
 
     //Setting up the archive button
     if (!email.archived){
       archive.innerHTML = "Archive";
+      archive.style.background = '#d6a100'
     }
     else{
       archive.innerHTML = "Unarchive";
+      archive.style.background = '#72d600'
     }
     archive.onclick = () => {
       if (!email.archived){
@@ -179,7 +185,7 @@ function load_mailpage(mail_id, mailbox){
         subject.value = `Re: ${email.subject}`;
       }
       subject.disabled = true;
-      body.placeholder = `-On ${email.timestamp} ${email.sender} wrote:\n"${email.body}"\nYour reply:`;
+      body.innerHTML = `-On ${email.timestamp} ${email.sender} wrote:\n${email.body}\n`;
       compose_email(true);
     }
   })
